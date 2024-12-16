@@ -208,7 +208,7 @@ export default {
       this.isStreaming = !this.isStreaming;
     },
 
-    // 交通标志识别
+    // 交通标志识别 
     async autoMove() {
       this.isAutoMove = !this.isAutoMove;
       const url = `http://raspberrypi.local:5004/traffic_sign_${this.isAutoMove ? 'on' : 'off'}`;
