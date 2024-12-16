@@ -125,12 +125,12 @@ export default {
       this.updateChart(this.temperatureData, this.humidityData, newData);
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     const chartDom = this.$refs.chartContainer;
     const myChart = echarts.getInstanceByDom(chartDom);
     if (myChart) {
-      window.removeEventListener('resize', myChart.resize);
-      myChart.dispose();
+      window.removeEventListener('resize', myChart.resize);  // 移除事件监听
+      myChart.dispose();  // 销毁图表实例
     }
   }
 };

@@ -3,6 +3,7 @@
 </template>
 
 <script>
+/* global BMap */
 export default {
   name: 'BaiduMap',
   props: {
@@ -17,23 +18,39 @@ export default {
       required: false
     }
   },
+  data() {
+    return {
+      map: null, // 保存地图实例
+      marker: null // 保存地图标记
+    };
+  },
   mounted() {
-    this.initMap();
+    this.loadBaiduMapAPI();
   },
   methods: {
+    // 加载百度地图API
+    loadBaiduMapAPI() {
+      // 动态加载百度地图API
+      const script = document.createElement('script');
+      script.src = 'https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY'; // 替换为你的API Key
+      script.onload = this.initMap;  // 脚本加载完成后初始化地图
+      document.head.appendChild(script);
+    },
+
+    // 初始化地图
     initMap() {
       if (typeof BMap !== 'undefined') {
-        const map = new BMap.Map('map');
+        this.map = new BMap.Map('map');
         const point = new BMap.Point(this.longitude, this.latitude);
-        map.centerAndZoom(point, 15);
-        const marker = new BMap.Marker(point);
-        map.addOverlay(marker);
-
-        // 添加居中控件
-        this.addCenterButton(map);
+        this.map.centerAndZoom(point, 15);
+        this.marker = new BMap.Marker(point);
+        this.map.addOverlay(this.marker);
+        this.addCenterButton();
       }
     },
-    addCenterButton(map) {
+
+    // 添加居中按钮
+    addCenterButton() {
       const centerButton = document.createElement('button');
       centerButton.innerHTML = '<i class="el-icon-place"></i>';
       centerButton.style.position = 'absolute';
@@ -46,21 +63,20 @@ export default {
       centerButton.style.zIndex = 1000; // 确保在地图之上
 
       centerButton.onclick = () => {
-        map.setCenter(new BMap.Point(this.longitude, this.latitude)); // 根据经纬度居中
+        const point = new BMap.Point(this.longitude, this.latitude);
+        this.map.setCenter(point); // 根据经纬度居中
+        this.marker.setPosition(point); // 更新标记位置
       };
 
-      map.getContainer().appendChild(centerButton); // 将按钮添加到地图容器
+      this.map.getContainer().appendChild(centerButton); // 将按钮添加到地图容器
     },
+
+    // 更新地图
     updateMap() {
-      if (typeof BMap !== 'undefined') {
-        const lat = this.latitude || 59.915;  // 默认纬度
-        const lng = this.longitude || 116.404; // 默认经度
-        const map = new BMap.Map('map');
-        const point = new BMap.Point(lng, lat);
-        map.centerAndZoom(point, 15);
-        map.clearOverlays();
-        const marker = new BMap.Marker(point);
-        map.addOverlay(marker);
+      if (this.map && this.marker) {
+        const point = new BMap.Point(this.longitude, this.latitude);
+        this.map.centerAndZoom(point, 15);
+        this.marker.setPosition(point); // 更新标记位置
       }
     }
   },

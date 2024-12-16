@@ -13,39 +13,39 @@ export default {
       type: Number,
       required: true,
       validator(value) {
-        // 确保值在 0 到 100 之间
+        // Ensure value is between 0 and 100
         return value >= 0 && value <= 100;
       }
     }
   },
   data() {
     return {
-      myChart: null // 图表实例
+      myChart: null // Chart instance
     };
   },
   mounted() {
-    this.initChart(); // 初始化图表
-    this.updateChart(this.value); // 设置初始值
-    window.addEventListener('resize', this.resizeChart); // 监听窗口大小变化
+    this.initChart(); // Initialize the chart
+    this.updateChart(this.value); // Set initial value
+    window.addEventListener('resize', this.resizeChart); // Listen for window resize events
   },
   methods: {
     initChart() {
       const chartDom = this.$refs.chartContainer;
-      this.myChart = echarts.init(chartDom); // 初始化图表实例
+      this.myChart = echarts.init(chartDom); // Initialize the chart instance
 
       const option = {
         series: [
           {
             type: 'liquidFill',
-            name: '液体填充', // 可选名称
-            data: [this.value / 100], // 将值归一化为 0-1 之间
+            name: 'Liquid Fill', // Optional name
+            data: [this.value / 100], // Normalize value to between 0 and 1
             radius: '80%',
             itemStyle: {
               opacity: 0.8,
             },
             label: {
               formatter: (param) => {
-                return `${Math.round(param.value * 100)}%`; // 格式化文本
+                return `${Math.round(param.value * 100)}%`; // Format the label text
               },
               position: ['50%', '50%'],
               fontSize: 28,
@@ -58,37 +58,39 @@ export default {
         ]
       };
 
-      this.myChart.setOption(option); // 设置图表选项
+      this.myChart.setOption(option); // Set chart options
     },
     updateChart(newValue) {
-      // 更新图表数据
+      // Update the chart data
       this.myChart.setOption({
         series: [
           {
-            data: [newValue / 100] // 更新为新值并归一化
+            data: [newValue / 100] // Update with new normalized value
           }
         ]
       });
     },
     resizeChart() {
       if (this.myChart) {
-        this.myChart.resize(); // 调整图表大小
+        this.myChart.resize(); // Adjust chart size on window resize
       }
     }
   },
   watch: {
     value(newValue) {
-      this.updateChart(newValue); // 当 value 变化时更新图表
+      this.updateChart(newValue); // Update the chart when value changes
     }
   },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.resizeChart); // 清理事件监听
+  beforeUnmount() {
+    // Clean up event listeners and chart instance before unmount
+    window.removeEventListener('resize', this.resizeChart);
     if (this.myChart) {
-      this.myChart.dispose(); // 销毁图表实例
+      this.myChart.dispose(); // Dispose the chart instance
     }
   }
 };
 </script>
 
 <style scoped>
+/* You can add custom styles for your component here */
 </style>

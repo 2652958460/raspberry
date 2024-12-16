@@ -167,7 +167,8 @@ export default {
     this.initChart();  // 初始化图表
     window.addEventListener('resize', this.chartInstance.resize);
   },
-  beforeDestroy() {
+  beforeUnmount() {
+    // Vue 3 使用 beforeUnmount 替代 beforeDestroy
     window.removeEventListener('resize', this.chartInstance.resize);
     this.chartInstance.dispose();
   }

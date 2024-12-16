@@ -15,35 +15,35 @@
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <el-menu
           default-active="1" 
-          
-          mode="vertical"
+          mode="vertical" 
         >
           <!-- 父菜单 -->
-          <el-submenu index="1" >
-            <template #title>
-              <el-icon><Setting /></el-icon>
-              <span>功能导航栏</span>
-            </template>
-
-            <!-- 子菜单项 -->
-            <el-menu-item index="1-1">
-              <router-link to="/real-time-chart">
+          <el-sub-menu index="1">
+          <template #title>
+            <el-icon><Setting /></el-icon>
+            <span>功能导航栏</span>
+          </template>
+          
+             <el-menu-item index="1-1">
+              <router-link to="/real-time-chart" class="no-link-style">
                 <el-icon><DataAnalysis /></el-icon> 实时监测图表
               </router-link>
             </el-menu-item>
 
             <el-menu-item index="1-2">
-              <router-link to="/remote-control">
+              <router-link to="/remote-control" class="no-link-style">
                 <el-icon><Rank /></el-icon> 远程控制
               </router-link>
             </el-menu-item>
 
             <el-menu-item index="1-3">
-              <router-link to="/raspberry-status">
+              <router-link to="/raspberry-status" class="no-link-style">
                 <el-icon><Histogram /></el-icon> 树莓派运行状态
               </router-link>
             </el-menu-item>
-          </el-submenu>
+       
+          
+          </el-sub-menu>
         </el-menu>
       </el-aside>
 
