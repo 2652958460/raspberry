@@ -1,7 +1,8 @@
 <template>
   <el-container style="height: 100vh; margin-top: 50px;">
     <!-- Header -->
-    <el-header style="display: flex; justify-content: center; align-items: center; font-size: 24px; background-color: #B3C0D1; position: relative;">
+    <el-header
+      style="display: flex; justify-content: center; align-items: center; font-size: 24px; background-color: #B3C0D1; position: relative;">
       <!-- 树莓派Logo -->
       <router-link to="/" style="position: absolute; left: 20px; display: flex; align-items: center;">
         <img src="@/assets/raspberry_pi_logo.png" alt="Raspberry Pi" style="width: 200px; height: 200px;" />
@@ -13,42 +14,47 @@
     <el-container>
       <!-- Sidebar -->
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu
-          default-active="1" 
-          mode="vertical" 
-        >
+        <el-menu default-active="1" mode="vertical">
           <!-- 父菜单 -->
           <el-sub-menu index="1">
-          <template #title>
-            <el-icon><Setting /></el-icon>
-            <span>功能导航栏</span>
-          </template>
-          
-             <el-menu-item index="1-1">
+            <template #title>
+              <el-icon>
+                <Setting />
+              </el-icon>
+              <span>功能导航栏</span>
+            </template>
+
+            <el-menu-item index="1-1">
               <router-link to="/real-time-chart" class="no-link-style">
-                <el-icon><DataAnalysis /></el-icon> 实时监测图表
+                <el-icon>
+                  <DataAnalysis />
+                </el-icon> 实时监测图表
               </router-link>
             </el-menu-item>
 
             <el-menu-item index="1-2">
               <router-link to="/remote-control" class="no-link-style">
-                <el-icon><Rank /></el-icon> 远程控制
+                <el-icon>
+                  <Rank />
+                </el-icon> 远程控制
               </router-link>
             </el-menu-item>
 
             <el-menu-item index="1-3">
               <router-link to="/raspberry-status" class="no-link-style">
-                <el-icon><Histogram /></el-icon> 树莓派运行状态
+                <el-icon>
+                  <Histogram />
+                </el-icon> 树莓派运行状态
               </router-link>
             </el-menu-item>
-       
-          
+
+
           </el-sub-menu>
         </el-menu>
       </el-aside>
 
       <!-- Main Content -->
-      <el-main style="display: flex; justify-content: center; align-items: center;">
+      <el-main>
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -85,7 +91,8 @@ export default {
 
 .el-menu-item .router-link-active {
   font-weight: bold;
-  color: #409EFF; /* Active link color */
+  color: #409EFF;
+  /* Active link color */
 }
 
 .no-link-style {
@@ -106,5 +113,11 @@ export default {
   .el-container {
     flex-direction: column;
   }
+}
+
+.MainContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
